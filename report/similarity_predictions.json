@@ -1,0 +1,45 @@
+{
+  "purpose": "Dự đoán được ghi trước lần chạy thí nghiệm; đây là dự đoán theo ý nghĩa, không phải dự đoán hành vi băm của mock.",
+  "backend": "MockEmbedder(dim=64)",
+  "comparison_rule": "Chỉ để đối chiếu trong bài tập: cao nếu cosine >= 0.5, thấp nếu cosine < 0.5. Đây không phải ngưỡng đánh giá retrieval thực tế.",
+  "high_threshold": 0.5,
+  "predicted_highest_pair": 5,
+  "predicted_lowest_pair": 4,
+  "pairs": [
+    {
+      "id": 1,
+      "sentence_a": "Tôi muốn trả lại sản phẩm bị lỗi.",
+      "sentence_b": "Tôi cần hoàn trả món hàng không hoạt động.",
+      "prediction": "cao",
+      "reason": "Hai cách diễn đạt cùng ý định trả lại hàng lỗi."
+    },
+    {
+      "id": 2,
+      "sentence_a": "Người bán cần phản hồi yêu cầu bảo hành.",
+      "sentence_b": "Cửa hàng phải trả lời đề nghị sửa chữa trong thời gian bảo hành.",
+      "prediction": "cao",
+      "reason": "Cùng nói về việc bên bán phản hồi yêu cầu bảo hành."
+    },
+    {
+      "id": 3,
+      "sentence_a": "Khách hàng muốn biết quy trình hoàn tiền.",
+      "sentence_b": "Đội bóng đang luyện tập để thi đấu cuối tuần.",
+      "prediction": "thấp",
+      "reason": "Chủ đề hỗ trợ mua hàng khác với hoạt động thể thao."
+    },
+    {
+      "id": 4,
+      "sentence_a": "Hóa đơn được dùng để đối chiếu thông tin mua hàng.",
+      "sentence_b": "Sao Mộc là một hành tinh trong Hệ Mặt Trời.",
+      "prediction": "thấp",
+      "reason": "Hai câu khác chủ đề và mục đích; dự đoán thấp nhất là giả thuyết cần kiểm tra."
+    },
+    {
+      "id": 5,
+      "sentence_a": "Tôi cần kiểm tra tình trạng đơn hàng.",
+      "sentence_b": "Tôi cần kiểm tra tình trạng đơn hàng.",
+      "prediction": "cao",
+      "reason": "Câu giống hệt nhau làm đối chứng; embedding xác định phải cho cosine xấp xỉ 1."
+    }
+  ]
+}
