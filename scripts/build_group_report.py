@@ -1,4 +1,15 @@
-# Báo cáo nhóm G63 — Lab 7: Embedding & Vector Store
+"""G63 synthesis of supplied personal reports plus measured local artifacts."""
+import json
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+REPORT = ROOT / 'report'
+audit = json.loads((REPORT / 'shopee_corpus_audit.json').read_text(encoding='utf-8'))
+spec = json.loads((ROOT / 'benchmark_queries.json').read_text(encoding='utf-8'))
+baseline = json.loads((REPORT / 'shopee_baseline.json').read_text(encoding='utf-8'))
+results = json.loads((REPORT / 'benchmark_results.json').read_text(encoding='utf-8'))
+
+text = '''# Báo cáo nhóm G63 — Lab 7: Embedding & Vector Store
 
 **Nhóm:** G63
 
@@ -31,16 +42,10 @@ Corpus `data/shopee-return-refund/` có **9 bản tóm lược từ 6 URL Shopee
 
 | # | Tài liệu | Nguồn | Phiên bản | Ký tự thân bài | Audience / category |
 |---|---|---|---|---:|---|
-| 1 | [buyer-return-conditions](../data/shopee-return-refund/buyer-return-conditions.md) | [Shopee](https://help.shopee.vn/portal/4/article/77251) | effective-2026-03-11 | 986 | buyer / returns-policy |
-| 2 | [seller-return-shipping](../data/shopee-return-refund/seller-return-shipping.md) | [Shopee](https://help.shopee.vn/portal/4/article/77251) | effective-2026-03-11 | 927 | seller / shipping-policy |
-| 3 | [buyer-return-request](../data/shopee-return-refund/buyer-return-request.md) | [Shopee](https://help.shopee.vn/portal/4/article/79233) | not-stated | 634 | buyer / returns-policy |
-| 4 | [buyer-refund-processing](../data/shopee-return-refund/buyer-refund-processing.md) | [Shopee](https://shopee.vn/blog/?p=188413) | published-2026-09-15 | 757 | buyer / refund-policy |
-| 5 | [buyer-warranty-claim](../data/shopee-return-refund/buyer-warranty-claim.md) | [Shopee](https://help.shopee.vn/portal/4/article/77245) | updated-2025-01-03 | 418 | buyer / warranty-policy |
-| 6 | [buyer-received-wrong-item](../data/shopee-return-refund/buyer-received-wrong-item.md) | [Shopee](https://help.shopee.vn/portal/4/article/79467) | not-stated | 694 | buyer / returns-policy |
-| 7 | [seller-return-handling](../data/shopee-return-refund/seller-return-handling.md) | [Shopee](https://help.shopee.vn/portal/4/article/77251) | effective-2026-03-11 | 540 | seller / returns-policy |
-| 8 | [seller-refund-dispute](../data/shopee-return-refund/seller-refund-dispute.md) | [Shopee](https://help.shopee.vn/portal/4/article/77265) | published-2024-03-15 | 516 | seller / refund-policy |
-| 9 | [seller-warranty-obligations](../data/shopee-return-refund/seller-warranty-obligations.md) | [Shopee](https://help.shopee.vn/portal/4/article/77245) | updated-2025-01-03 | 370 | seller / warranty-policy |
-
+'''
+for i, d in enumerate(audit, 1):
+    text += f"| {i} | [{d['doc_id']}](../{d['file_path']}) | [Shopee]({d['source_url']}) | {d['document_version']} | {d['body_characters']} | {d['audience']} / {d['category']} |\n"
+text += '''
 Số ký tự tính trên thân bài đã bỏ frontmatter, trước chunking. Nhiều tài liệu chọn các mục khác nhau của cùng nguồn; 9 tài liệu không có nghĩa là 9 nguồn độc lập. Danh mục và hash: [sources.csv](../data/shopee-return-refund/sources.csv), [corpus audit](shopee_corpus_audit.json).
 
 ### Quản trị dữ liệu
@@ -72,16 +77,14 @@ Bảng sau lấy từ [shopee_baseline.json](shopee_baseline.json), do `Chunking
 
 | Tài liệu | Chiến lược | Số chunk | Ký tự TB | Nhận xét ranh giới |
 |---|---|---:|---:|---|
-| buyer-received-wrong-item | fixed_size | 3 | 254.67 | Có thể cắt giữa câu; overlap lặp nội dung |
-| buyer-received-wrong-item | by_sentences | 4 | 172.00 | Giữ câu; không bảo đảm giới hạn 350 ký tự |
-| buyer-received-wrong-item | recursive | 3 | 231.33 | Ưu tiên đoạn/dòng; có thể tách điều kiện khỏi kết luận |
-| buyer-refund-processing | fixed_size | 3 | 275.67 | Có thể cắt giữa câu; overlap lặp nội dung |
-| buyer-refund-processing | by_sentences | 3 | 251.33 | Giữ câu; không bảo đảm giới hạn 350 ký tự |
-| buyer-refund-processing | recursive | 4 | 189.25 | Ưu tiên đoạn/dòng; có thể tách điều kiện khỏi kết luận |
-| buyer-return-conditions | fixed_size | 4 | 272.75 | Có thể cắt giữa câu; overlap lặp nội dung |
-| buyer-return-conditions | by_sentences | 4 | 245.00 | Giữ câu; không bảo đảm giới hạn 350 ký tự |
-| buyer-return-conditions | recursive | 4 | 246.50 | Ưu tiên đoạn/dòng; có thể tách điều kiện khỏi kết luận |
-
+'''
+for doc, strategies in baseline.items():
+    for name, info in strategies.items():
+        note = {'fixed_size': 'Có thể cắt giữa câu; overlap lặp nội dung',
+                'by_sentences': 'Giữ câu; không bảo đảm giới hạn 350 ký tự',
+                'recursive': 'Ưu tiên đoạn/dòng; có thể tách điều kiện khỏi kết luận'}[name]
+        text += f"| {doc} | {name} | {info['count']} | {info['avg_length']:.2f} | {note} |\n"
+text += '''
 Nam cũng báo cáo baseline ở kích thước 420: trên `buyer-return-request`, Semantic tạo 5 chunk (104.6 ký tự TB), trong khi Fixed/Sentence/Recursive đều tạo 2; trên `buyer-refund-processing` là 4 chunk (118.5); trên `seller-return-handling` là 3 chunk (168.3). Nam ghi rõ lần chạy dùng mock, nên các số này chỉ cho thấy cách pipeline phân mảnh ở lần chạy đó, chưa chứng minh khả năng chia theo ngữ nghĩa.
 
 ### Chiến lược của từng thành viên
@@ -133,12 +136,10 @@ Dùng nguyên văn câu hỏi tiếng Anh từ file Nam trong [benchmark_queries
 
 | Câu | Query | Filter | Gold answer | Tài liệu bằng chứng |
 |---|---|---|---|---|
-| Q1 | How long does a buyer have to request a return or refund? | {'audience': 'buyer'} | 15 ngày từ khi đơn cập nhật giao thành công; thực phẩm tươi sống/đông lạnh 24 giờ. Quá hạn chỉ được xem xét hỗ trợ. | buyer-return-conditions |
-| Q2 | What must a seller do after a buyer opens a return request? | {'audience': 'seller'} | Theo dõi thông báo Shopee, đối chiếu hàng hoàn. Khi không đồng ý quyết định hoặc hàng hoàn có vấn đề, phản hồi trong 2 ngày lịch từ thông báo, trừ thời hạn khác; không phản hồi được coi là đồng ý. | seller-return-handling, seller-return-shipping |
-| Q3 | When is the buyer's refund released after a return is approved? | {'audience': 'buyer'} | Duyệt trả hàng chưa đồng nghĩa giải ngân ngay: tùy xác nhận nhận hàng, chấp thuận hoàn không trả hàng, hoặc quyết định hoàn sớm của Shopee. Tiền về tùy phương thức: thẻ 7–14 ngày làm việc, Napas 2–5 ngày làm việc, ví khoảng 24 giờ; COD/chuyển khoản về ngân hàng khoảng 2 ngày làm việc. Tính từ chấp nhận hoàn tiền, có thể phụ thuộc ngân hàng. | buyer-return-conditions, buyer-refund-processing |
-| Q4 | Which reasons and evidence can support a return or refund claim? | Không | Các lý do: chưa nhận/thiếu hàng, giả/nhái, lỗi/hư, sai, khác mô tả, hết hạn, người bán đồng ý; không còn nhu cầu có điều kiện riêng. Bằng chứng tùy trường hợp: ảnh/video rõ tình trạng, mã vận đơn, số lượng, lịch sử trao đổi. Chưa nhận hàng không cần bằng chứng theo hướng dẫn Shopee. | buyer-return-conditions, buyer-received-wrong-item |
-| Q5 | Who pays return shipping and what should the seller do with the parcel? | {'audience': 'seller'} | Phí phụ thuộc lỗi, loại yêu cầu và hình thức gửi: người bán chịu theo mục 7.1 nhưng có miễn trừ; người mua không trả phí lấy tại nhà/bưu cục, tự sắp xếp ứng phí rồi được hoàn/hỗ trợ theo điều kiện Mall/ngoài Mall. Người bán đối chiếu kiện và phản hồi vấn đề trong 2 ngày lịch từ thông báo, trừ thời hạn khác. | seller-return-shipping |
-
+'''
+for q in spec['queries']:
+    text += f"| {q['id']} | {q['question']} | {q['filter'] or 'Không'} | {q['gold_answer']} | {', '.join(q['gold_docs'])} |\n"
+text += '''
 ### Đối chiếu từng câu từ bốn báo cáo
 
 “Đủ” ở cột Ngọc nghĩa là đủ toàn bộ chuỗi khai báo trong gold hiện tại; “liên quan” trong các báo cáo khác chưa chắc có cùng tiêu chuẩn. Mọi câu trả lời của agent được báo cáo hiện là demo/echo hoặc trích xuất, chưa có bằng chứng đánh giá LLM sinh thật.
@@ -157,10 +158,11 @@ Kết quả từ [benchmark_results.json](benchmark_results.json), top-k3, cùng
 
 | Chiến lược | Số chunk | Ký tự TB | Câu đủ bằng chứng @3 | Proxy /10 |
 |---|---:|---:|---:|---:|
-| fixed | 23 | 275.30 | 2/5 | 4 |
-| recursive | 27 | 216.37 | 2/5 | 3 |
-| heading | 27 | 233.07 | 2/5 | 3 |
-
+'''
+for name, info in results['strategies'].items():
+    rows = [r for r in info['rows'] if r['filtered']]
+    text += f"| {name} | {info['count']} | {info['avg_length']:.2f} | {sum(r['evidence_present'] for r in rows)}/5 | {sum(r['retrieval_score_proxy'] for r in rows)} |\n"
+text += '''
 Proxy: 2 nếu đủ chuỗi ngay top-1, 1 nếu cần top-2/3, 0 nếu chưa đủ. Proxy0 có thể vẫn có đáp án một phần, nên không thay rubric 2/1/0 cho chất lượng câu trả lời. Fixed có proxy cao hơn trong đối chứng này nhưng cả ba chỉ đủ2/5; chưa có Sentence2/Semantic thật trên cùng môi trường để so sánh bốn người.
 
 ### Metadata filter và lỗi truy xuất
@@ -214,3 +216,6 @@ Nếu làm lại, nhóm sẽ chốt manifest dữ liệu, query nguyên văn, fi
 - [ ] Hoàn thành demo rồi bổ sung phản hồi thực tế; chấm điểm nhóm theo cùng rubric.
 
 Bản tổng hợp này hoàn thiện phần nội dung từ các tài liệu đã bàn giao. Các mục chưa có dữ liệu được ghi rõ thay vì suy đoán kết quả hoặc trải nghiệm của thành viên.
+'''
+(REPORT / 'REPORT_NHOM.md').write_text(text, encoding='utf-8')
+print('Updated REPORT_NHOM.md for G63 from four personal reports and local artifacts')

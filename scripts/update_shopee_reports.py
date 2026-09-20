@@ -2,6 +2,7 @@
 import hashlib
 import json
 import sys
+import argparse
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -11,6 +12,9 @@ from src.chunking import ChunkingStrategyComparator
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--update-group', action='store_true', help='Regenerate the old group draft explicitly')
+    args = parser.parse_args()
     spec_path = ROOT / 'benchmark_queries.json'
     spec = json.loads(spec_path.read_text(encoding='utf-8'))
     result = json.loads((ROOT / 'report/benchmark_results.json').read_text(encoding='utf-8'))
@@ -121,6 +125,10 @@ Các mục 1–4 giữ thí nghiệm cá nhân giai đoạn trước; mục 5 đ
 Đã cập nhật phần kỹ thuật cá nhân theo benchmark Nam. Tổng điểm tối đa vẫn là 60 theo rubric; các proxy không phải điểm giảng viên chấm. Chưa có trải nghiệm demo để ghi nhận và chưa đủ điều kiện xếp hạng giữa các thành viên.
 '''
     personal_path.write_text(personal + section, encoding='utf-8')
+
+    # The completed group synthesis includes other members; preserve it by default.
+    if not args.update_group:
+        return
 
     group_path = ROOT / 'report/REPORT_NHOM.md'
     group = group_path.read_text(encoding='utf-8')
