@@ -4,13 +4,13 @@
 
 **MSSV:** 2A202602664
 
-**Nhóm:** Chưa lập nhóm
+**Nhóm:** G63
 
 **Ngày cập nhật:** 2026-09-20
 
-**Trạng thái:** Đã chuẩn bị phần cá nhân không phụ thuộc nhóm; chưa nộp bài.
+**Trạng thái:** Đã chạy corpus và benchmark Shopee; đã bổ sung báo cáo cá nhân; chưa nộp bài.
 
-> Báo cáo được soạn với sự hỗ trợ của Codex dựa trên mã nguồn và kết quả chạy thực tế. Người học cần đọc hiểu, rà soát phần diễn giải và xác nhận thông tin cá nhân trước khi nộp. Mục 5 chờ corpus và câu hỏi chung; chưa có kết quả thi đua hoặc trải nghiệm demo nhóm để báo cáo.
+> Báo cáo được soạn với sự hỗ trợ của Codex dựa trên mã nguồn và kết quả chạy thực tế. Người học cần đọc hiểu, rà soát phần diễn giải và xác nhận thông tin cá nhân trước khi nộp. Mục 5 dùng kết quả chạy thực tế trên corpus Shopee. Chưa có kết quả của các thành viên khác hoặc trải nghiệm demo nhóm để báo cáo.
 
 Phần cá nhân có tối đa 60 điểm: khởi động (5), hướng tiếp cận (10), code (30), dự đoán độ tương tự (5), kết quả truy xuất trên bộ câu hỏi chung (10). Hoàn thiện nội dung không đồng nghĩa đã được giảng viên chấm điểm.
 
@@ -223,41 +223,104 @@ Cấu hình: fixed-size `chunk_size=200`, `overlap=20`; sentence `max_sentences_
 
 Sentence tạo ít chunk hơn nhưng độ dài trung bình vượt 200 ký tự vì chỉ giới hạn số câu. Recursive giữ ranh giới có sẵn nên không lấp đầy mọi chunk; fixed-size có độ dài gần mục tiêu và lặp nội dung do overlap. Chưa thể chọn chiến lược truy xuất tốt nhất chỉ từ số lượng và độ dài: cần bộ câu hỏi chung và kiểm tra đoạn nào thực sự chứa đáp án.
 
-## 5. Kết quả truy xuất của tôi (Competition Results) — Cá nhân (10 điểm)
+## 5. Kết quả truy xuất của tôi — benchmark của Nam
 
-**Chưa thực hiện vì chưa lập nhóm.** Chưa có corpus chung 5–10 tài liệu chính sách đã xác minh, 5 câu hỏi chung, gold answer hoặc phân công chiến lược. Thí nghiệm ở mục 4 không được tính thay cho benchmark này.
+### Bộ câu hỏi và dữ liệu dùng chung
 
-Các việc cần làm sau khi có nhóm:
+Dùng **nguyên văn 5 câu tiếng Anh và filter** từ [ket_qua_benchmark (nam).txt](../ket_qua_benchmark%20(nam).txt), lưu trong [benchmark_queries.json](../benchmark_queries.json). Q1/Q3 lọc buyer, Q2/Q5 lọc seller, **Q4 không lọc**. Không dịch câu hỏi trước khi embedding. File của Nam được giữ nguyên.
 
-- [ ] Thống nhất corpus và đúng 5 câu hỏi cùng gold answer, xác định chunk chứa bằng chứng.
-- [ ] Chốt chiến lược cá nhân khác các thành viên; bảo đảm nhóm có người thử heading/section.
-- [ ] Tạo `bench.py` nạp corpus, tách frontmatter, chunk ngoài store và giữ metadata trên mọi chunk.
-- [ ] Chạy 5 câu hỏi, lưu top-3 gồm ID chunk, nguồn, nội dung, score và câu trả lời agent vào `ket_qua_benchmark.txt`.
-- [ ] So sánh câu hỏi cần lọc `audience` với/không filter trên ba chiến lược, kiểm tra nội dung có chứa đáp án.
-- [ ] Phân tích ít nhất một lỗi truy xuất thật và đề xuất cải thiện.
-- [ ] Bổ sung bảng kết quả dưới đây và bài học thực tế từ demo nhóm.
+Corpus hiện có **9 tài liệu tóm lược từ 6 nguồn Shopee**, lấy ngày 20/09/2026. So với lần trước, thêm `buyer-return-conditions.md` (hạn yêu cầu, lý do, điều kiện giải ngân) và `seller-return-shipping.md` (phí và xử lý kiện); bổ sung trường hợp chưa nhận hàng không cần bằng chứng vào tài liệu bằng chứng. Nguồn bổ sung là các mục 3, 5, 7–9 của bản chính sách đã crawl, hiệu lực 11/03/2026. Không lấy đáp án từ trí nhớ hoặc suy đoán.
 
-| # | Câu hỏi chung | Top-1 chunk | Score | Liên quan? | Câu trả lời agent |
-|---|---|---|---|---|---|
-| 1 | Chờ nhóm thống nhất | Chưa chạy | Chưa đo | Chưa đánh giá | Chưa có |
-| 2 | Chờ nhóm thống nhất | Chưa chạy | Chưa đo | Chưa đánh giá | Chưa có |
-| 3 | Chờ nhóm thống nhất | Chưa chạy | Chưa đo | Chưa đánh giá | Chưa có |
-| 4 | Chờ nhóm thống nhất | Chưa chạy | Chưa đo | Chưa đánh giá | Chưa có |
-| 5 | Chờ nhóm thống nhất | Chưa chạy | Chưa đo | Chưa đánh giá | Chưa có |
+Xem [sources.csv](../data/shopee-return-refund/sources.csv), [crawl log](shopee_crawl_log.json), [corpus audit](shopee_corpus_audit.json). Metadata gồm audience, category, source_url, retrieved_at, document_version, source_sha256. Frontmatter không được embedding. Tài liệu là bản tóm lược đối chiếu, không phải toàn văn; `public-source` không phải giấy phép mở. HTML gốc nằm trong `.cache/shopee/` và không commit.
 
-**Số câu có chunk liên quan trong top-3:** Chưa đo.
+**Giới hạn so sánh với Nam:** file Nam ghi 7 tài liệu, 14 chunk nhưng không ghi model, phiên bản corpus, gold answer hay nội dung chunk. Lần này có 9 tài liệu. Vì vậy đã đồng bộ câu hỏi/filter, nhưng chưa thể xếp hạng hai thành viên từ hai file hiện tại. Cần Nam nhận cùng corpus/đáp án chuẩn/model rồi chạy lại. Không suy rằng Nam dùng mock chỉ từ các score thấp.
 
-**Điều học được từ thành viên/nhóm khác qua demo:** Chưa có hoạt động nhóm để ghi nhận.
+### Chiến lược và cách chạy
+
+Chiến lược cá nhân: **Fixed-Size Chunking, 350 ký tự/chunk, overlap 35 ký tự**, theo cách chia mô tả trong [chunking_experiment_report.md](../data/chunking_experiment_report.md). File đó chỉ mô tả nguyên lý, không ấn định kích thước/overlap; 350/35 là cấu hình thí nghiệm này. `FixedSizeChunker` cắt chuỗi tại các vị trí 0, 315, 630…; chunk cuối có thể ngắn hơn. Không ưu tiên ranh giới câu hay tiêu đề, không lặp thêm tiêu đề. Baseline đối chiếu: heading350 và recursive350. Cả ba dùng cùng corpus, câu hỏi, top-k=3 và embedding thật `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`, chuẩn hóa vector trước dot product.
+
+Fixed-size đơn giản, giới hạn độ dài rõ ràng và có số chunk dự đoán được; overlap giảm mất thông tin gần ranh giới nhưng không bảo đảm giữ trọn quy trình. Có thể cắt giữa từ/câu hoặc tách điều kiện khỏi kết luận, đúng hạn chế mà báo cáo thử nghiệm nêu. Đây là ba thí nghiệm trên mã nguồn cá nhân, chưa phải ba kết quả của ba thành viên.
+
+Agent dùng **extractive-offline**: trả các đoạn nguồn đã truy xuất, kèm số trích dẫn; chưa dùng LLM sinh câu trả lời. `answer_from_results` dùng đúng context sau lọc. Output có thể chứa thông tin thừa và thiếu đáp án, không được tính là câu trả lời sinh đã đạt chất lượng.
+
+```powershell
+.\.venv\Scripts\python.exe -X utf8 scripts/prepare_shopee_corpus.py
+.\.venv\Scripts\python.exe -X utf8 scripts/use_nam_benchmark.py
+.\.venv\Scripts\python.exe -X utf8 bench.py
+.\.venv\Scripts\python.exe -X utf8 scripts/update_shopee_reports.py
+.\.venv\Scripts\python.exe -m pytest tests/ -v
+```
+
+Lần đầu cần `requirements-local.txt` và chạy `scripts/download_embedding_model.py`. Prepare dùng bản crawl đã lưu; khi trang thay đổi cần rà soát lại bản tóm lược. Log mới: [ket_qua_benchmark.txt](../ket_qua_benchmark.txt), [benchmark_results.json](benchmark_results.json). Hash spec và corpus được lưu để tránh trộn kết quả khác phiên bản.
+
+### Câu hỏi, gold answer và kết quả fixed-size
+
+Gold answer là đáp án được đối chiếu từ corpus hiện tại, **không phải đáp án chuẩn do Nam cung cấp** vì file của Nam không có gold. Q3/Q4 tổng hợp nhiều tài liệu, nên công cụ hỗ trợ `gold_docs` thay vì chỉ một doc_id.
+
+| Câu | Câu hỏi nguyên văn | Filter | Đáp án chuẩn |
+|---|---|---|---|
+| Q1 | How long does a buyer have to request a return or refund? | {'audience': 'buyer'} | 15 ngày từ khi đơn cập nhật giao thành công; thực phẩm tươi sống/đông lạnh 24 giờ. Quá hạn chỉ được xem xét hỗ trợ. |
+| Q2 | What must a seller do after a buyer opens a return request? | {'audience': 'seller'} | Theo dõi thông báo Shopee, đối chiếu hàng hoàn. Khi không đồng ý quyết định hoặc hàng hoàn có vấn đề, phản hồi trong 2 ngày lịch từ thông báo, trừ thời hạn khác; không phản hồi được coi là đồng ý. |
+| Q3 | When is the buyer's refund released after a return is approved? | {'audience': 'buyer'} | Duyệt trả hàng chưa đồng nghĩa giải ngân ngay: tùy xác nhận nhận hàng, chấp thuận hoàn không trả hàng, hoặc quyết định hoàn sớm của Shopee. Tiền về tùy phương thức: thẻ 7–14 ngày làm việc, Napas 2–5 ngày làm việc, ví khoảng 24 giờ; COD/chuyển khoản về ngân hàng khoảng 2 ngày làm việc. Tính từ chấp nhận hoàn tiền, có thể phụ thuộc ngân hàng. |
+| Q4 | Which reasons and evidence can support a return or refund claim? | Không | Các lý do: chưa nhận/thiếu hàng, giả/nhái, lỗi/hư, sai, khác mô tả, hết hạn, người bán đồng ý; không còn nhu cầu có điều kiện riêng. Bằng chứng tùy trường hợp: ảnh/video rõ tình trạng, mã vận đơn, số lượng, lịch sử trao đổi. Chưa nhận hàng không cần bằng chứng theo hướng dẫn Shopee. |
+| Q5 | Who pays return shipping and what should the seller do with the parcel? | {'audience': 'seller'} | Phí phụ thuộc lỗi, loại yêu cầu và hình thức gửi: người bán chịu theo mục 7.1 nhưng có miễn trừ; người mua không trả phí lấy tại nhà/bưu cục, tự sắp xếp ứng phí rồi được hoàn/hỗ trợ theo điều kiện Mall/ngoài Mall. Người bán đối chiếu kiện và phản hồi vấn đề trong 2 ngày lịch từ thông báo, trừ thời hạn khác. |
+
+| Câu | Top-1 | Cosine | Hạng đủ toàn bộ bằng chứng | Các chuỗi bằng chứng còn thiếu trong top-3 |
+|---|---|---:|---|---|
+| Q1 | `buyer-return-conditions::01` | 0.677249 | 1 | Không |
+| Q2 | `seller-return-handling::01` | 0.626721 | 1 | Không |
+| Q3 | `buyer-return-conditions::01` | 0.576306 | Chưa đủ | không cần trả hàng, 7–14 ngày làm việc, 2–5 ngày làm việc, 2 ngày làm việc, chấp nhận hoàn tiền |
+| Q4 | `buyer-warranty-claim::02` | 0.457181 | Chưa đủ | hàng giả/nhái, hết hạn, điều kiện riêng, mã vận đơn, ảnh, không cần |
+| Q5 | `seller-return-shipping::01` | 0.539798 | Chưa đủ | đối chiếu hàng hoàn, 2 ngày lịch, thời hạn khác |
+
+**2/5 câu đủ toàn bộ chuỗi bằng chứng trong top-3** theo cấu hình filter của Nam. Đây là kiểm tra đủ ý, không đồng nghĩa chỉ 2 câu có đoạn liên quan. Các câu còn lại có thể có bằng chứng một phần.
+
+Kiểm tra tự động chỉ tìm các chuỗi đã khai báo trong context thuộc các tài liệu gold. Proxy 2/1/0 lần lượt nghĩa là đủ bằng chứng ngay top-1 / cần top-2 hoặc top-3 / chưa đủ. Proxy nghiêm ngặt này không thay điểm rubric: câu trả lời một phần có thể được chấm khác. Không dùng doc_id hoặc cosine để tự kết luận đáp án đúng.
+
+**Đối chiếu output thực tế của fixed-size:**
+
+- Q1: có hạn 15 ngày, ngoại lệ 24 giờ và điều kiện xét hỗ trợ quá hạn trong top-1.
+- Q2: các chuỗi kiểm tra về thông báo, 2 ngày lịch và thời hạn khác nằm ở top-1; top-2 bổ sung hậu quả không phản hồi. Cần đọc cùng các đoạn để giữ đủ điều kiện áp dụng.
+- Q3: lấy nhầm đoạn thời hạn gửi yêu cầu và một phần điều kiện giải ngân; không lấy được bảng thời gian theo phương thức. Không thể dùng 15 ngày gửi yêu cầu làm thời gian tiền về.
+- Q4: top-1 là bảo hành, các đoạn sau chưa chứa lý do và hướng dẫn bằng chứng cần thiết. Câu này thất bại về nội dung dù có tài liệu gold xuất hiện.
+- Q5: có các điều khoản phí người bán và người mua trong top-3 nhưng thiếu hướng dẫn đối chiếu kiện, thời hạn 2 ngày lịch và ngoại lệ. Không đủ cả hai vế của câu hỏi.
+
+### So sánh ba chiến lược
+
+| Chiến lược | Số chunk | Ký tự TB | Đủ bằng chứng theo filter Nam | Proxy theo Nam /10 | Proxy bỏ filter /10 |
+|---|---:|---:|---:|---:|---:|
+| fixed | 23 | 275.30 | 2/5 | 4 | 4 |
+| recursive | 27 | 216.37 | 2/5 | 3 | 2 |
+| heading | 27 | 233.07 | 2/5 | 3 | 3 |
+
+Không so các score này với bộ 5 câu tiếng Việt cũ. Câu hỏi tiếng Anh trên corpus tiếng Việt và câu hỏi nhiều vế làm thay đổi độ khó; chưa có thí nghiệm đối chứng riêng để định lượng ảnh hưởng của ngôn ngữ.
+
+### Có và không có metadata filter — Q2
+
+| Chiến lược | Top-3 bỏ filter | Top-3 theo Nam (seller) | Đủ bằng chứng trước → sau |
+|---|---|---|---|
+| fixed | `seller-return-handling::01` (0.6267); `buyer-return-conditions::02` (0.5529); `seller-return-handling::02` (0.5512) | `seller-return-handling::01` (0.6267); `seller-return-handling::02` (0.5512); `seller-refund-dispute::01` (0.5452) | True → True |
+| recursive | `buyer-return-conditions::03` (0.6182); `seller-return-handling::03` (0.6090); `seller-return-handling::01` (0.6065) | `seller-return-handling::03` (0.6090); `seller-return-handling::01` (0.6065); `seller-return-handling::02` (0.5812) | False → True |
+| heading | `seller-return-handling::03` (0.6414); `seller-return-handling::02` (0.6159); `seller-return-handling::01` (0.6065) | `seller-return-handling::03` (0.6414); `seller-return-handling::02` (0.6159); `seller-return-handling::01` (0.6065) | True → True |
+
+Với recursive, bỏ filter làm mất đoạn chứa 2 ngày lịch/thời hạn khác khỏi top-3; lọc seller đưa đoạn đó trở lại. Với heading, Q2 đã có cùng top-3 seller trước lọc nên filter không cải thiện kết quả câu này. Q4 có filter `null` đúng theo Nam; hai lần chạy của Q4 đều không lọc, không được diễn giải là A/B filter.
+
+### Phân tích lỗi và hướng cải thiện chưa thử
+
+Lỗi chính là không bao phủ đủ các vế: Q3 cần điều kiện giải ngân cùng thời gian theo phương thức, Q4 cần lý do cùng bằng chứng, Q5 cần phí cùng xử lý kiện. Fixed-size có thể cắt giữa lời giải thích, còn overlap 35 ký tự không nối được những điều khoản ở xa nhau. Có thể thử truy vấn con cho từng vế, bổ sung chunk lân cận hoặc reranker; mọi thành viên cần thống nhất cấu hình trước khi so sánh lại. Chưa tăng top-k hoặc sửa câu hỏi để làm đẹp kết quả hiện tại.
+
+### Kiểm thử và tiến độ cá nhân
+
+Các mục 1–4 giữ thí nghiệm cá nhân giai đoạn trước; mục 5 được thay hoàn toàn bằng lần chạy theo Nam. Kết quả test mới lưu tại [pytest_shopee_output.txt](pytest_shopee_output.txt), gồm 42 test gốc và các test bổ sung cho heading/context/corpus/khớp câu hỏi-filter.
+
+- [x] Đồng bộ nguyên văn 5 câu và filter của Nam.
+- [x] Bổ sung điều khoản thiếu, cập nhật 9 MD, hai CSV và audit.
+- [x] Chạy lại ba chiến lược bằng embedding thật; lưu đầy đủ top-3 và output.
+- [x] Viết lại bảng kết quả và phân tích lỗi; không giữ kết luận 5/5 của lần trước.
+- [ ] Nam và các thành viên khác chạy lại cùng corpus/model/gold để so sánh công bằng.
+- [ ] Đánh giá thêm LLM sinh nếu cần chấm chất lượng câu trả lời RAG sinh.
+- [ ] Thực hiện demo và ghi bài học từ trao đổi thực tế.
 
 ## Tự đánh giá tiến độ phần cá nhân
 
-| Tiêu chí | Điểm tối đa | Trạng thái và bằng chứng |
-|---|---:|---|
-| Khởi động | 5 | Đã giải thích, tính toán và kiểm tra số chunk bằng code |
-| Hướng tiếp cận | 10 | Đã mô tả cách triển khai cùng hạn chế thực tế |
-| Hoàn thiện code | 30 | 42/42 test pass, demo chạy thành công |
-| Dự đoán độ tương tự | 5 | Đã lưu dự đoán trước khi chạy, đủ 5 cặp và phân tích giới hạn mock |
-| Kết quả truy xuất của tôi | 10 | Chờ corpus, câu hỏi và chiến lược chung của nhóm |
-| **Tổng** | **60** | **Đã chuẩn bị các hạng mục tương ứng tối đa 50 điểm; 10 điểm phụ thuộc benchmark nhóm. Đây không phải điểm đã được chấm.** |
-
-Trước khi nộp, người học cần rà soát lời giải, thực hành giải thích lại thuật toán và bổ sung những phần phụ thuộc nhóm ở mục 5.
+Đã cập nhật phần kỹ thuật cá nhân theo benchmark Nam. Tổng điểm tối đa vẫn là 60 theo rubric; các proxy không phải điểm giảng viên chấm. Chưa có trải nghiệm demo để ghi nhận và chưa đủ điều kiện xếp hạng giữa các thành viên.

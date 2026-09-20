@@ -1,0 +1,94 @@
+{
+  "buyer-received-wrong-item": {
+    "fixed_size": {
+      "count": 3,
+      "avg_length": 254.66666666666666,
+      "chunks": [
+        "# 2. Đã nhận được hàng nhưng hàng có vấn đề\n\nNếu chưa nhận hàng, người mua không cần cung cấp bằng chứng; Shopee đối chiếu hệ thống theo dõi đơn.\n\nVới hàng sai mẫu, thiếu hoặc hỏng, nên quay liên tục lúc mở gói: hình ảnh rõ, thấy kiện hàng, mã vận đơn, số lượng và tình trạng sản phẩm. Khi gửi trả, nên ghi lại quá trình đóng gói để đối chiếu sau này",
+        "trình đóng gói để đối chiếu sau này.\n\n# 4. Quy định về bằng chứng\n\nMỗi ảnh tối đa 5 MB; mỗi video tối đa 100 MB và dài không quá 1 phút. Nội dung cần rõ lỗi; có thể bổ sung lịch sử trao đổi. Tệp lớn có thể được gửi qua liên kết công khai theo hướng dẫn của Shopee.\n\nNếu được yêu cầu bổ sung bằng chứng, người mua có 24 giờ. Quá thời hạn, Shopee đánh ",
+        " 24 giờ. Quá thời hạn, Shopee đánh giá dựa vào tài liệu đã nhận."
+      ]
+    },
+    "by_sentences": {
+      "count": 4,
+      "avg_length": 172.0,
+      "chunks": [
+        "# 2. Đã nhận được hàng nhưng hàng có vấn đề\n\nNếu chưa nhận hàng, người mua không cần cung cấp bằng chứng; Shopee đối chiếu hệ thống theo dõi đơn. Với hàng sai mẫu, thiếu hoặc hỏng, nên quay liên tục lúc mở gói: hình ảnh rõ, thấy kiện hàng, mã vận đơn, số lượng và tình trạng sản phẩm.",
+        "Khi gửi trả, nên ghi lại quá trình đóng gói để đối chiếu sau này. # 4. Quy định về bằng chứng\n\nMỗi ảnh tối đa 5 MB; mỗi video tối đa 100 MB và dài không quá 1 phút.",
+        "Nội dung cần rõ lỗi; có thể bổ sung lịch sử trao đổi. Tệp lớn có thể được gửi qua liên kết công khai theo hướng dẫn của Shopee. Nếu được yêu cầu bổ sung bằng chứng, người mua có 24 giờ.",
+        "Quá thời hạn, Shopee đánh giá dựa vào tài liệu đã nhận."
+      ]
+    },
+    "recursive": {
+      "count": 3,
+      "avg_length": 231.33333333333334,
+      "chunks": [
+        "# 2. Đã nhận được hàng nhưng hàng có vấn đề\n\nNếu chưa nhận hàng, người mua không cần cung cấp bằng chứng; Shopee đối chiếu hệ thống theo dõi đơn.\n\n",
+        "Với hàng sai mẫu, thiếu hoặc hỏng, nên quay liên tục lúc mở gói: hình ảnh rõ, thấy kiện hàng, mã vận đơn, số lượng và tình trạng sản phẩm. Khi gửi trả, nên ghi lại quá trình đóng gói để đối chiếu sau này.\n\n# 4. Quy định về bằng chứng\n\n",
+        "Mỗi ảnh tối đa 5 MB; mỗi video tối đa 100 MB và dài không quá 1 phút. Nội dung cần rõ lỗi; có thể bổ sung lịch sử trao đổi. Tệp lớn có thể được gửi qua liên kết công khai theo hướng dẫn của Shopee.\n\nNếu được yêu cầu bổ sung bằng chứng, người mua có 24 giờ. Quá thời hạn, Shopee đánh giá dựa vào tài liệu đã nhận."
+      ]
+    }
+  },
+  "buyer-refund-processing": {
+    "fixed_size": {
+      "count": 3,
+      "avg_length": 275.6666666666667,
+      "chunks": [
+        "# Cách nhận tiền hoàn trả hàng trên Shopee\n\nThời gian dưới đây tính từ khi Shopee chấp nhận hoàn tiền và có thể phụ thuộc ngân hàng:\n\n- Thanh toán bằng thẻ tín dụng hoặc thẻ ghi nợ: tiền quay về thẻ trong 7–14 ngày làm việc. Apple Pay và Google Pay cũng hoàn về thẻ liên kết trong khoảng này.\n- Thẻ Napas: khoảng 2–5 ngày làm việc.\n- Ví ShopeePay: kh",
+        "5 ngày làm việc.\n- Ví ShopeePay: khoảng 24 giờ nếu ví hoạt động bình thường.\n- COD hoặc chuyển khoản: hoàn về ngân hàng khoảng 2 ngày làm việc; nếu nhận qua ShopeePay, khoảng 24 giờ khi ví hoạt động bình thường.\n- SPayLater: khoảng 24 giờ, kiểm tra phần giao dịch.\n\n# Cách theo dõi tình trạng Trả hàng/Hoàn tiền\n\nMở chi tiết yêu cầu trong đơn hàng để",
+        " chi tiết yêu cầu trong đơn hàng để xem tiến độ. Cũng có thể kiểm tra thông báo cập nhật đơn, email hoặc trò chuyện với Shopee."
+      ]
+    },
+    "by_sentences": {
+      "count": 3,
+      "avg_length": 251.33333333333334,
+      "chunks": [
+        "# Cách nhận tiền hoàn trả hàng trên Shopee\n\nThời gian dưới đây tính từ khi Shopee chấp nhận hoàn tiền và có thể phụ thuộc ngân hàng:\n\n- Thanh toán bằng thẻ tín dụng hoặc thẻ ghi nợ: tiền quay về thẻ trong 7–14 ngày làm việc. Apple Pay và Google Pay cũng hoàn về thẻ liên kết trong khoảng này. - Thẻ Napas: khoảng 2–5 ngày làm việc.",
+        "- Ví ShopeePay: khoảng 24 giờ nếu ví hoạt động bình thường. - COD hoặc chuyển khoản: hoàn về ngân hàng khoảng 2 ngày làm việc; nếu nhận qua ShopeePay, khoảng 24 giờ khi ví hoạt động bình thường. - SPayLater: khoảng 24 giờ, kiểm tra phần giao dịch.",
+        "# Cách theo dõi tình trạng Trả hàng/Hoàn tiền\n\nMở chi tiết yêu cầu trong đơn hàng để xem tiến độ. Cũng có thể kiểm tra thông báo cập nhật đơn, email hoặc trò chuyện với Shopee."
+      ]
+    },
+    "recursive": {
+      "count": 4,
+      "avg_length": 189.25,
+      "chunks": [
+        "# Cách nhận tiền hoàn trả hàng trên Shopee\n\nThời gian dưới đây tính từ khi Shopee chấp nhận hoàn tiền và có thể phụ thuộc ngân hàng:\n\n",
+        "- Thanh toán bằng thẻ tín dụng hoặc thẻ ghi nợ: tiền quay về thẻ trong 7–14 ngày làm việc. Apple Pay và Google Pay cũng hoàn về thẻ liên kết trong khoảng này.\n- Thẻ Napas: khoảng 2–5 ngày làm việc.\n- Ví ShopeePay: khoảng 24 giờ nếu ví hoạt động bình thường.\n",
+        "- COD hoặc chuyển khoản: hoàn về ngân hàng khoảng 2 ngày làm việc; nếu nhận qua ShopeePay, khoảng 24 giờ khi ví hoạt động bình thường.\n- SPayLater: khoảng 24 giờ, kiểm tra phần giao dịch.\n\n# Cách theo dõi tình trạng Trả hàng/Hoàn tiền\n\n",
+        "Mở chi tiết yêu cầu trong đơn hàng để xem tiến độ. Cũng có thể kiểm tra thông báo cập nhật đơn, email hoặc trò chuyện với Shopee."
+      ]
+    }
+  },
+  "buyer-return-conditions": {
+    "fixed_size": {
+      "count": 4,
+      "avg_length": 272.75,
+      "chunks": [
+        "# 3. Điều kiện yêu cầu trả hàng/hoàn tiền\n\nThời hạn gửi yêu cầu là 15 ngày từ khi đơn cập nhật giao hàng thành công; thực phẩm tươi sống hoặc đông lạnh: 24 giờ. Quá hạn, Shopee có thể xem xét hỗ trợ, không mặc nhiên chấp thuận.\n\nLý do gồm chưa nhận hoặc thiếu hàng, hàng giả/nhái, lỗi/hư hỏng, giao sai, khác rõ mô tả, hết hạn; hoặc người bán đồng ý ",
+        "tả, hết hạn; hoặc người bán đồng ý (Shopee xác nhận lại). Trả vì không còn nhu cầu có điều kiện riêng tại mục 4, không áp dụng mọi người mua/sản phẩm.\n\n# 9. Hoàn tiền đối với sản phẩm hoàn trả\n\nKhông phải cứ duyệt trả hàng là giải ngân ngay. Các trường hợp gồm người bán xác nhận nhận hàng hoàn; chấp nhận đề xuất không cần trả hàng; Shopee quyết địn",
+        "hông cần trả hàng; Shopee quyết định hoàn ngay; hoặc đơn đủ điều kiện và Shopee quyết định hoàn khi đơn vị vận chuyển xác nhận nhận hàng hoàn.\n\nMột số người mua không có lịch sử vi phạm có thể được hoàn sớm theo quyết định Shopee. Shopee tự động hoàn nếu người bán không phản hồi trong thời hạn quy định. Thời gian tiền về phụ thuộc phương thức thanh",
+        "tiền về phụ thuộc phương thức thanh toán."
+      ]
+    },
+    "by_sentences": {
+      "count": 4,
+      "avg_length": 245.0,
+      "chunks": [
+        "# 3. Điều kiện yêu cầu trả hàng/hoàn tiền\n\nThời hạn gửi yêu cầu là 15 ngày từ khi đơn cập nhật giao hàng thành công; thực phẩm tươi sống hoặc đông lạnh: 24 giờ. Quá hạn, Shopee có thể xem xét hỗ trợ, không mặc nhiên chấp thuận.",
+        "Lý do gồm chưa nhận hoặc thiếu hàng, hàng giả/nhái, lỗi/hư hỏng, giao sai, khác rõ mô tả, hết hạn; hoặc người bán đồng ý (Shopee xác nhận lại). Trả vì không còn nhu cầu có điều kiện riêng tại mục 4, không áp dụng mọi người mua/sản phẩm. # 9.",
+        "Hoàn tiền đối với sản phẩm hoàn trả\n\nKhông phải cứ duyệt trả hàng là giải ngân ngay. Các trường hợp gồm người bán xác nhận nhận hàng hoàn; chấp nhận đề xuất không cần trả hàng; Shopee quyết định hoàn ngay; hoặc đơn đủ điều kiện và Shopee quyết định hoàn khi đơn vị vận chuyển xác nhận nhận hàng hoàn. Một số người mua không có lịch sử vi phạm có thể được hoàn sớm theo quyết định Shopee.",
+        "Shopee tự động hoàn nếu người bán không phản hồi trong thời hạn quy định. Thời gian tiền về phụ thuộc phương thức thanh toán."
+      ]
+    },
+    "recursive": {
+      "count": 4,
+      "avg_length": 246.5,
+      "chunks": [
+        "# 3. Điều kiện yêu cầu trả hàng/hoàn tiền\n\nThời hạn gửi yêu cầu là 15 ngày từ khi đơn cập nhật giao hàng thành công; thực phẩm tươi sống hoặc đông lạnh: 24 giờ. Quá hạn, Shopee có thể xem xét hỗ trợ, không mặc nhiên chấp thuận.\n\n",
+        "Lý do gồm chưa nhận hoặc thiếu hàng, hàng giả/nhái, lỗi/hư hỏng, giao sai, khác rõ mô tả, hết hạn; hoặc người bán đồng ý (Shopee xác nhận lại). Trả vì không còn nhu cầu có điều kiện riêng tại mục 4, không áp dụng mọi người mua/sản phẩm.\n\n# 9. Hoàn tiền đối với sản phẩm hoàn trả\n\n",
+        "Không phải cứ duyệt trả hàng là giải ngân ngay. Các trường hợp gồm người bán xác nhận nhận hàng hoàn; chấp nhận đề xuất không cần trả hàng; Shopee quyết định hoàn ngay; hoặc đơn đủ điều kiện và Shopee quyết định hoàn khi đơn vị vận chuyển xác nhận nhận hàng hoàn.\n\n",
+        "Một số người mua không có lịch sử vi phạm có thể được hoàn sớm theo quyết định Shopee. Shopee tự động hoàn nếu người bán không phản hồi trong thời hạn quy định. Thời gian tiền về phụ thuộc phương thức thanh toán."
+      ]
+    }
+  }
+}

@@ -14,7 +14,7 @@
 
 ### Chủ đề (Domain) & Lý Do Chọn
 
-**Chủ đề:** [ví dụ: Customer support FAQ, Luật Việt Nam, công thức nấu ăn, ...]
+**Chủ đề:** Chính sách trả hàng và hoàn tiền trên Shopee.
 
 **Tại sao nhóm chọn chủ đề này?**
 > *Viết 2-3 câu:*
@@ -97,13 +97,15 @@ Chạy `ChunkingStrategyComparator().compare()` trên 2-3 tài liệu:
 
 > **Đúng 5 câu hỏi**, đa dạng, có thể kiểm chứng; **ít nhất 1 câu** cần lọc metadata mới trả lời tốt. Đây là bộ câu hỏi chung cho mọi thành viên chạy.
 
-| # | Câu hỏi (Query) | Câu trả lời chuẩn (Gold Answer) | Chunk nào chứa thông tin? |
-|---|-------|-------------------------------|--------------------------|
-| 1 | | | |
-| 2 | | | |
-| 3 | | | |
-| 4 | | | |
-| 5 | | | |
+| # | Câu hỏi (Query) | Câu trả lời chuẩn (Gold Answer) | Tài liệu chứa bằng chứng |
+|---|---|---|---|
+| Q1 | How long does a buyer have to request a return or refund? | 15 ngày từ khi đơn cập nhật giao thành công; thực phẩm tươi sống/đông lạnh 24 giờ. Quá hạn chỉ được xem xét hỗ trợ. | buyer-return-conditions |
+| Q2 | What must a seller do after a buyer opens a return request? | Theo dõi thông báo Shopee, đối chiếu hàng hoàn. Khi không đồng ý quyết định hoặc hàng hoàn có vấn đề, phản hồi trong 2 ngày lịch từ thông báo, trừ thời hạn khác; không phản hồi được coi là đồng ý. | seller-return-handling, seller-return-shipping |
+| Q3 | When is the buyer's refund released after a return is approved? | Duyệt trả hàng chưa đồng nghĩa giải ngân ngay: tùy xác nhận nhận hàng, chấp thuận hoàn không trả hàng, hoặc quyết định hoàn sớm của Shopee. Tiền về tùy phương thức: thẻ 7–14 ngày làm việc, Napas 2–5 ngày làm việc, ví khoảng 24 giờ; COD/chuyển khoản về ngân hàng khoảng 2 ngày làm việc. Tính từ chấp nhận hoàn tiền, có thể phụ thuộc ngân hàng. | buyer-return-conditions, buyer-refund-processing |
+| Q4 | Which reasons and evidence can support a return or refund claim? | Các lý do: chưa nhận/thiếu hàng, giả/nhái, lỗi/hư, sai, khác mô tả, hết hạn, người bán đồng ý; không còn nhu cầu có điều kiện riêng. Bằng chứng tùy trường hợp: ảnh/video rõ tình trạng, mã vận đơn, số lượng, lịch sử trao đổi. Chưa nhận hàng không cần bằng chứng theo hướng dẫn Shopee. | buyer-return-conditions, buyer-received-wrong-item |
+| Q5 | Who pays return shipping and what should the seller do with the parcel? | Phí phụ thuộc lỗi, loại yêu cầu và hình thức gửi: người bán chịu theo mục 7.1 nhưng có miễn trừ; người mua không trả phí lấy tại nhà/bưu cục, tự sắp xếp ứng phí rồi được hoàn/hỗ trợ theo điều kiện Mall/ngoài Mall. Người bán đối chiếu kiện và phản hồi vấn đề trong 2 ngày lịch từ thông báo, trừ thời hạn khác. | seller-return-shipping |
+
+Dùng [benchmark_queries.json](../benchmark_queries.json) theo câu hỏi/filter của Nam: Q1/Q3 buyer, Q2/Q5 seller, Q4 không lọc. Gold đối chiếu từ corpus cập nhật; file Nam không có gold. Xem mục 5 [báo cáo cá nhân](REPORT_CANHAN.md) để đối chiếu chunk và kết quả mới.
 
 ### Tổng hợp chất lượng truy xuất của nhóm
 
@@ -144,3 +146,19 @@ Chạy `ChunkingStrategyComparator().compare()` trên 2-3 tài liệu:
 | Chất lượng truy xuất (Retrieval Quality) | / 10 |
 | Thuyết trình (Demo) | / 5 |
 | **Tổng phần nhóm** | **/ 40** |
+
+## Phụ lục dữ liệu đã chuẩn bị trên máy Lê Quang Ngọc
+
+Corpus mới có 9 bản tóm lược từ 6 nguồn. Lê Quang Ngọc: Fixed-Size 350 ký tự, overlap35, top-k3, multilingual MiniLM; theo nguyên lý trong data/chunking_experiment_report.md (file không ấn định tham số). Heading và recursive là baseline trên cùng máy, chưa thay cho kết quả thành viên khác. Nam cần chạy lại corpus/model/gold chung vì file cũ có 7 tài liệu và không ghi model/hash. Kết quả và phân tích filter Q2 xem [REPORT_CANHAN mục 5](REPORT_CANHAN.md).
+
+| Tài liệu baseline | Chiến lược | Số chunk | Ký tự TB |
+|---|---|---:|---:|
+| buyer-received-wrong-item | fixed_size | 3 | 254.67 |
+| buyer-received-wrong-item | by_sentences | 4 | 172.00 |
+| buyer-received-wrong-item | recursive | 3 | 231.33 |
+| buyer-refund-processing | fixed_size | 3 | 275.67 |
+| buyer-refund-processing | by_sentences | 3 | 251.33 |
+| buyer-refund-processing | recursive | 4 | 189.25 |
+| buyer-return-conditions | fixed_size | 4 | 272.75 |
+| buyer-return-conditions | by_sentences | 4 | 245.00 |
+| buyer-return-conditions | recursive | 4 | 246.50 |

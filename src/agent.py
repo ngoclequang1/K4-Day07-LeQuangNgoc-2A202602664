@@ -19,6 +19,10 @@ class KnowledgeBaseAgent:
 
     def answer(self, question: str, top_k: int = 3) -> str:
         results = self.store.search(question, top_k=top_k)
+        return self.answer_from_results(question, results)
+
+    def answer_from_results(self, question: str, results: list[dict]) -> str:
+        """Answer using exactly the supplied retrieval results, including filters."""
         if not results:
             return "Không tìm thấy thông tin trong cơ sở tri thức để trả lời câu hỏi."
 
