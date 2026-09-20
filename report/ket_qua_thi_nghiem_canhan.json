@@ -1,0 +1,256 @@
+{
+  "backend": "mock embeddings fallback",
+  "embedding_dimensions": 64,
+  "limitation": "Mock embeddings are deterministic hash-based vectors, not semantic representations. These results are not a team retrieval benchmark.",
+  "comparison_rule": "Chỉ để đối chiếu trong bài tập: cao nếu cosine >= 0.5, thấp nếu cosine < 0.5. Đây không phải ngưỡng đánh giá retrieval thực tế.",
+  "predicted_highest_pair": 5,
+  "predicted_lowest_pair": 4,
+  "actual_highest_pair": 5,
+  "actual_lowest_pair": 2,
+  "similarity_pairs": [
+    {
+      "id": 1,
+      "sentence_a": "Tôi muốn trả lại sản phẩm bị lỗi.",
+      "sentence_b": "Tôi cần hoàn trả món hàng không hoạt động.",
+      "prediction": "cao",
+      "reason": "Hai cách diễn đạt cùng ý định trả lại hàng lỗi.",
+      "score": -0.043454975606961675,
+      "observed": "thấp",
+      "matches_prediction": false
+    },
+    {
+      "id": 2,
+      "sentence_a": "Người bán cần phản hồi yêu cầu bảo hành.",
+      "sentence_b": "Cửa hàng phải trả lời đề nghị sửa chữa trong thời gian bảo hành.",
+      "prediction": "cao",
+      "reason": "Cùng nói về việc bên bán phản hồi yêu cầu bảo hành.",
+      "score": -0.08398306223601729,
+      "observed": "thấp",
+      "matches_prediction": false
+    },
+    {
+      "id": 3,
+      "sentence_a": "Khách hàng muốn biết quy trình hoàn tiền.",
+      "sentence_b": "Đội bóng đang luyện tập để thi đấu cuối tuần.",
+      "prediction": "thấp",
+      "reason": "Chủ đề hỗ trợ mua hàng khác với hoạt động thể thao.",
+      "score": -0.04623688916347677,
+      "observed": "thấp",
+      "matches_prediction": true
+    },
+    {
+      "id": 4,
+      "sentence_a": "Hóa đơn được dùng để đối chiếu thông tin mua hàng.",
+      "sentence_b": "Sao Mộc là một hành tinh trong Hệ Mặt Trời.",
+      "prediction": "thấp",
+      "reason": "Hai câu khác chủ đề và mục đích; dự đoán thấp nhất là giả thuyết cần kiểm tra.",
+      "score": 0.23219811510202198,
+      "observed": "thấp",
+      "matches_prediction": true
+    },
+    {
+      "id": 5,
+      "sentence_a": "Tôi cần kiểm tra tình trạng đơn hàng.",
+      "sentence_b": "Tôi cần kiểm tra tình trạng đơn hàng.",
+      "prediction": "cao",
+      "reason": "Câu giống hệt nhau làm đối chứng; embedding xác định phải cho cosine xấp xỉ 1.",
+      "score": 1.0,
+      "observed": "cao",
+      "matches_prediction": true
+    }
+  ],
+  "chunking_math": [
+    {
+      "length": 10000,
+      "chunk_size": 500,
+      "overlap": 50,
+      "formula_count": 23,
+      "actual_count": 23
+    },
+    {
+      "length": 10000,
+      "chunk_size": 500,
+      "overlap": 100,
+      "formula_count": 25,
+      "actual_count": 25
+    }
+  ],
+  "sample_baseline": [
+    {
+      "document": "data/vector_store_notes.md",
+      "character_count": 2479,
+      "strategies": {
+        "fixed_size": {
+          "count": 14,
+          "avg_length": 195.64285714285714,
+          "chunks": [
+            "# Ghi chú về Vector Store\n\nVector store là một cơ sở dữ liệu hoặc lớp lưu trữ được thiết kế để giữ các embeddings và truy xuất các mục tương tự nhất với vector câu hỏi (query vector). Trong các hệ thố",
+            "r). Trong các hệ thống AI thực tế, vector store thường được dùng để hỗ trợ tìm kiếm ngữ nghĩa, gợi ý, quy trình phân cụm (clustering), và hệ thống tạo văn bản tăng cường truy xuất (RAG).\n\n## Quy trình",
+            "(RAG).\n\n## Quy trình làm việc Tiêu biểu\n\nMột đường ống tìm kiếm vector phổ biến có 4 giai đoạn:\n\n1. **Chia nhỏ tài liệu (Chunk documents)** thành các đơn vị nhỏ hơn để bảo toàn ý nghĩa.\n2. **Nhúng từn",
+            "ghĩa.\n2. **Nhúng từng đoạn (Embed each chunk)** thành một vector số học dày đặc (dense numerical vector).\n3. **Lưu trữ vector và metadata** để các bản ghi có thể được tìm kiếm và lọc.\n4. **Nhúng câu h",
+            "ọc.\n4. **Nhúng câu hỏi (Embed the query)** và xếp hạng các vector được lưu trữ theo độ tương tự.\n\nChất lượng của hệ thống truy xuất phụ thuộc rất lớn vào chất lượng của các đoạn (chunks). Nếu các đoạn",
+            "hunks). Nếu các đoạn quá nhỏ, chúng có thể mất đi ngữ cảnh và tạo ra các kết quả khớp không hoàn chỉnh. Nếu các đoạn quá lớn, chúng có thể chứa quá nhiều ý tưởng không liên quan và làm loãng đi độ liê",
+            " làm loãng đi độ liên quan ngữ nghĩa.\n\n## Tầm quan trọng của Metadata\n\nMetadata thường quan trọng không kém bản thân vector. Các nhóm thường lưu các trường như nguồn tài liệu, ngôn ngữ, tác giả, khu v",
+            " ngữ, tác giả, khu vực sản phẩm, ngày xuất bản, và mức độ kiểm soát truy cập. Khi một người dùng hỏi một câu hỏi về một lĩnh vực cụ thể, các bộ lọc metadata có thể thu narrow không gian tìm kiếm và cả",
+            " gian tìm kiếm và cải thiện độ chính xác (precision).\n\nVí dụ, một trợ lý hỗ trợ có thể giới hạn truy xuất chỉ trong các hướng dẫn khắc phục sự cố công khai, trong khi một công cụ phân tích nội bộ có t",
+            "hân tích nội bộ có thể tìm kiếm các báo cáo kỹ thuật sau sự cố (postmortems) và tài liệu về sự cố. Bước lọc này làm giảm nhiễu và có thể ngăn ứng dụng hiển thị văn bản từ phòng ban sai hoặc tài liệu l",
+            " sai hoặc tài liệu lỗi thời.\n\n## Rủi ro Phổ biến\n\nVector store rất mạnh mẽ, nhưng việc truy xuất không tự nhiên mà chính xác. Chia nhỏ (chunking) kém, embeddings chất lượng thấp, thiếu metadata, và th",
+            "hiếu metadata, và thực hành đánh giá yếu đều có thể gây ra kết quả sai lệch. Một hệ thống có thể truy xuất những đoạn văn gần nhau về ngữ nghĩa nhưng không thực sự hữu ích cho tác vụ của người dùng.\n\n",
+            "vụ của người dùng.\n\nĐó là lý do các nhóm nên kiểm thử chất lượng truy xuất bằng các câu hỏi thực tế, so sánh tìm kiếm có lọc so với không lọc, và kiểm tra các đoạn văn bản (chunks) thực sự được hệ thố",
+            " thực sự được hệ thống trả về. Việc truy xuất tốt là kết quả của khâu chuẩn bị dữ liệu cẩn thận, chứ không chỉ là việc chọn cơ sở dữ liệu.\n"
+          ]
+        },
+        "by_sentences": {
+          "count": 8,
+          "avg_length": 308.125,
+          "chunks": [
+            "# Ghi chú về Vector Store\n\nVector store là một cơ sở dữ liệu hoặc lớp lưu trữ được thiết kế để giữ các embeddings và truy xuất các mục tương tự nhất với vector câu hỏi (query vector). Trong các hệ thống AI thực tế, vector store thường được dùng để hỗ trợ tìm kiếm ngữ nghĩa, gợi ý, quy trình phân cụm (clustering), và hệ thống tạo văn bản tăng cường truy xuất (RAG). ## Quy trình làm việc Tiêu biểu\n\nMột đường ống tìm kiếm vector phổ biến có 4 giai đoạn:\n\n1.",
+            "**Chia nhỏ tài liệu (Chunk documents)** thành các đơn vị nhỏ hơn để bảo toàn ý nghĩa. 2. **Nhúng từng đoạn (Embed each chunk)** thành một vector số học dày đặc (dense numerical vector).",
+            "3. **Lưu trữ vector và metadata** để các bản ghi có thể được tìm kiếm và lọc. 4.",
+            "**Nhúng câu hỏi (Embed the query)** và xếp hạng các vector được lưu trữ theo độ tương tự. Chất lượng của hệ thống truy xuất phụ thuộc rất lớn vào chất lượng của các đoạn (chunks). Nếu các đoạn quá nhỏ, chúng có thể mất đi ngữ cảnh và tạo ra các kết quả khớp không hoàn chỉnh.",
+            "Nếu các đoạn quá lớn, chúng có thể chứa quá nhiều ý tưởng không liên quan và làm loãng đi độ liên quan ngữ nghĩa. ## Tầm quan trọng của Metadata\n\nMetadata thường quan trọng không kém bản thân vector. Các nhóm thường lưu các trường như nguồn tài liệu, ngôn ngữ, tác giả, khu vực sản phẩm, ngày xuất bản, và mức độ kiểm soát truy cập.",
+            "Khi một người dùng hỏi một câu hỏi về một lĩnh vực cụ thể, các bộ lọc metadata có thể thu narrow không gian tìm kiếm và cải thiện độ chính xác (precision). Ví dụ, một trợ lý hỗ trợ có thể giới hạn truy xuất chỉ trong các hướng dẫn khắc phục sự cố công khai, trong khi một công cụ phân tích nội bộ có thể tìm kiếm các báo cáo kỹ thuật sau sự cố (postmortems) và tài liệu về sự cố. Bước lọc này làm giảm nhiễu và có thể ngăn ứng dụng hiển thị văn bản từ phòng ban sai hoặc tài liệu lỗi thời.",
+            "## Rủi ro Phổ biến\n\nVector store rất mạnh mẽ, nhưng việc truy xuất không tự nhiên mà chính xác. Chia nhỏ (chunking) kém, embeddings chất lượng thấp, thiếu metadata, và thực hành đánh giá yếu đều có thể gây ra kết quả sai lệch. Một hệ thống có thể truy xuất những đoạn văn gần nhau về ngữ nghĩa nhưng không thực sự hữu ích cho tác vụ của người dùng.",
+            "Đó là lý do các nhóm nên kiểm thử chất lượng truy xuất bằng các câu hỏi thực tế, so sánh tìm kiếm có lọc so với không lọc, và kiểm tra các đoạn văn bản (chunks) thực sự được hệ thống trả về. Việc truy xuất tốt là kết quả của khâu chuẩn bị dữ liệu cẩn thận, chứ không chỉ là việc chọn cơ sở dữ liệu."
+          ]
+        },
+        "recursive": {
+          "count": 16,
+          "avg_length": 154.9375,
+          "chunks": [
+            "# Ghi chú về Vector Store\n\nVector store là một cơ sở dữ liệu hoặc lớp lưu trữ được thiết kế để giữ các embeddings và truy xuất các mục tương tự nhất với vector câu hỏi (query vector). ",
+            "Trong các hệ thống AI thực tế, vector store thường được dùng để hỗ trợ tìm kiếm ngữ nghĩa, gợi ý, quy trình phân cụm (clustering), và hệ thống tạo văn bản tăng cường truy xuất (RAG).\n\n",
+            "## Quy trình làm việc Tiêu biểu\n\nMột đường ống tìm kiếm vector phổ biến có 4 giai đoạn:\n\n",
+            "1. **Chia nhỏ tài liệu (Chunk documents)** thành các đơn vị nhỏ hơn để bảo toàn ý nghĩa.\n2. **Nhúng từng đoạn (Embed each chunk)** thành một vector số học dày đặc (dense numerical vector).\n",
+            "3. **Lưu trữ vector và metadata** để các bản ghi có thể được tìm kiếm và lọc.\n4. **Nhúng câu hỏi (Embed the query)** và xếp hạng các vector được lưu trữ theo độ tương tự.\n\n",
+            "Chất lượng của hệ thống truy xuất phụ thuộc rất lớn vào chất lượng của các đoạn (chunks). Nếu các đoạn quá nhỏ, chúng có thể mất đi ngữ cảnh và tạo ra các kết quả khớp không hoàn chỉnh. ",
+            "Nếu các đoạn quá lớn, chúng có thể chứa quá nhiều ý tưởng không liên quan và làm loãng đi độ liên quan ngữ nghĩa.\n\n## Tầm quan trọng của Metadata\n\n",
+            "Metadata thường quan trọng không kém bản thân vector. Các nhóm thường lưu các trường như nguồn tài liệu, ngôn ngữ, tác giả, khu vực sản phẩm, ngày xuất bản, và mức độ kiểm soát truy cập. ",
+            "Khi một người dùng hỏi một câu hỏi về một lĩnh vực cụ thể, các bộ lọc metadata có thể thu narrow không gian tìm kiếm và cải thiện độ chính xác (precision).\n\n",
+            "Ví dụ, một trợ lý hỗ trợ có thể giới hạn truy xuất chỉ trong các hướng dẫn khắc phục sự cố công khai, trong khi một công cụ phân tích nội bộ có thể tìm kiếm các báo cáo kỹ thuật sau sự cố ",
+            "(postmortems) và tài liệu về sự cố. Bước lọc này làm giảm nhiễu và có thể ngăn ứng dụng hiển thị văn bản từ phòng ban sai hoặc tài liệu lỗi thời.\n\n## Rủi ro Phổ biến\n\n",
+            "Vector store rất mạnh mẽ, nhưng việc truy xuất không tự nhiên mà chính xác. ",
+            "Chia nhỏ (chunking) kém, embeddings chất lượng thấp, thiếu metadata, và thực hành đánh giá yếu đều có thể gây ra kết quả sai lệch. ",
+            "Một hệ thống có thể truy xuất những đoạn văn gần nhau về ngữ nghĩa nhưng không thực sự hữu ích cho tác vụ của người dùng.\n\n",
+            "Đó là lý do các nhóm nên kiểm thử chất lượng truy xuất bằng các câu hỏi thực tế, so sánh tìm kiếm có lọc so với không lọc, và kiểm tra các đoạn văn bản (chunks) thực sự được hệ thống trả về. ",
+            "Việc truy xuất tốt là kết quả của khâu chuẩn bị dữ liệu cẩn thận, chứ không chỉ là việc chọn cơ sở dữ liệu.\n"
+          ]
+        }
+      }
+    },
+    {
+      "document": "data/rag_system_design.md",
+      "character_count": 2700,
+      "strategies": {
+        "fixed_size": {
+          "count": 15,
+          "avg_length": 198.66666666666666,
+          "chunks": [
+            "# Thiết kế Hệ thống RAG cho Trợ lý Tri thức Nội bộ\n\n## Bối cảnh\n\nMột nhóm sản phẩm muốn một trợ lý có thể trả lời các câu hỏi về việc giới thiệu (onboarding), quy trình triển khai, sở hữu dịch vụ, và ",
+            " sở hữu dịch vụ, và các bước khắc phục sự cố. Công ty đã có sẵn tài liệu rải rác trên các sổ tay markdown, sổ tay kỹ thuật (runbooks), và ghi chú hỗ trợ, nhưng nhân viên lãng phí thời gian tìm kiếm tr",
+            "hời gian tìm kiếm trên các thư mục không liên kết với nhau.\n\n## Mục tiêu\n\nXây dựng một hệ thống tạo văn bản tăng cường truy xuất (retrieval-augmented generation - RAG) để tìm các tài liệu nội bộ có li",
+            "ài liệu nội bộ có liên quan trước khi đưa ra câu trả lời. Trợ lý nên giảm thiểu sự ảo giác (hallucinations) bằng cách căn cứ phản hồi của nó trên văn bản truy xuất được và nên phân biệt rõ ràng giữa n",
+            " biệt rõ ràng giữa ngữ cảnh được truy xuất và phần tổng hợp tự tạo.\n\n## Kiến trúc Đề xuất\n\nĐường ống thu thập (ingestion pipeline) đọc các file markdown và text từ các thư mục đáng tin cậy, chia nhỏ c",
+            " tin cậy, chia nhỏ chúng thành các đoạn (segments) mạch lạc về ngữ nghĩa, và lưu trữ các đoạn đó cùng với metadata. Mỗi bản ghi được lưu trữ bao gồm đường dẫn nguồn, mã định danh tài liệu, loại tài li",
+            "ài liệu, loại tài liệu, và phòng ban. Lớp truy xuất sẽ embed các câu hỏi của người dùng, thực hiện tìm kiếm tương tự (similarity search), và tùy chọn áp dụng các bộ lọc metadata khi câu hỏi được thu h",
+            "i câu hỏi được thu hẹp trong phạm vi một nhóm cụ thể.\n\nLớp ứng dụng lấy các đoạn (chunks) truy xuất được tốt nhất và xây dựng một lời nhắc (prompt) hướng dẫn mô hình ngôn ngữ chỉ trả lời từ các bằng c",
+            "rả lời từ các bằng chứng được cung cấp. Nếu kết quả truy xuất yếu hoặc mâu thuẫn, trợ lý nên nói rõ điều đó thay vì giả vờ rằng câu trả lời đã hoàn chỉnh.\n\n## Kế hoạch Đánh giá\n\nNhóm nên đo lường chất",
+            "óm nên đo lường chất lượng truy xuất bằng các câu hỏi thực tế của nhân viên như \"Làm thế nào để triển khai billing API?\" hoặc \"Ai sở hữu dịch vụ checkout?\" Thành công không chỉ là việc câu trả lời ngh",
+            "việc câu trả lời nghe trôi chảy hay không, mà là liệu bằng chứng được truy xuất có liên quan, có thể truy vết, và cập nhật hay không.\n\nMột kế hoạch kiểm thử hữu ích bao gồm so sánh các chiến lược chia",
+            " các chiến lược chia nhỏ (chunking), kiểm tra xem các bộ lọc metadata có cải thiện độ liên quan không, và ghi chép lại các trường hợp thất bại. Ví dụ về các trường hợp thất bại có thể bao gồm tài liệu",
+            "thể bao gồm tài liệu lỗi thời được xếp hạng cao hơn sổ tay hiện tại, các đoạn nhỏ làm mất các lưu ý quan trọng, hoặc nội dung đa ngôn ngữ làm rối mô hình embedding.\n\n## Lưu ý Vận hành\n\nKhi tập tài liệ",
+            "ành\n\nKhi tập tài liệu tăng lên, nhóm nên theo dõi hành vi index lại, việc xóa tài liệu, và độ mới của nguồn. Hệ thống cũng nên ghi log lại các đoạn nào đã được truy xuất để người đánh giá có thể xem x",
+            "ánh giá có thể xem xét tại sao một câu trả lời nhất định được tạo ra. Vòng lặp phản hồi đó là thiết yếu để cải thiện cả dữ liệu và chiến lược đưa ra câu lệnh (prompting strategy).\n"
+          ]
+        },
+        "by_sentences": {
+          "count": 5,
+          "avg_length": 537.8,
+          "chunks": [
+            "# Thiết kế Hệ thống RAG cho Trợ lý Tri thức Nội bộ\n\n## Bối cảnh\n\nMột nhóm sản phẩm muốn một trợ lý có thể trả lời các câu hỏi về việc giới thiệu (onboarding), quy trình triển khai, sở hữu dịch vụ, và các bước khắc phục sự cố. Công ty đã có sẵn tài liệu rải rác trên các sổ tay markdown, sổ tay kỹ thuật (runbooks), và ghi chú hỗ trợ, nhưng nhân viên lãng phí thời gian tìm kiếm trên các thư mục không liên kết với nhau. ## Mục tiêu\n\nXây dựng một hệ thống tạo văn bản tăng cường truy xuất (retrieval-augmented generation - RAG) để tìm các tài liệu nội bộ có liên quan trước khi đưa ra câu trả lời.",
+            "Trợ lý nên giảm thiểu sự ảo giác (hallucinations) bằng cách căn cứ phản hồi của nó trên văn bản truy xuất được và nên phân biệt rõ ràng giữa ngữ cảnh được truy xuất và phần tổng hợp tự tạo. ## Kiến trúc Đề xuất\n\nĐường ống thu thập (ingestion pipeline) đọc các file markdown và text từ các thư mục đáng tin cậy, chia nhỏ chúng thành các đoạn (segments) mạch lạc về ngữ nghĩa, và lưu trữ các đoạn đó cùng với metadata. Mỗi bản ghi được lưu trữ bao gồm đường dẫn nguồn, mã định danh tài liệu, loại tài liệu, và phòng ban.",
+            "Lớp truy xuất sẽ embed các câu hỏi của người dùng, thực hiện tìm kiếm tương tự (similarity search), và tùy chọn áp dụng các bộ lọc metadata khi câu hỏi được thu hẹp trong phạm vi một nhóm cụ thể. Lớp ứng dụng lấy các đoạn (chunks) truy xuất được tốt nhất và xây dựng một lời nhắc (prompt) hướng dẫn mô hình ngôn ngữ chỉ trả lời từ các bằng chứng được cung cấp. Nếu kết quả truy xuất yếu hoặc mâu thuẫn, trợ lý nên nói rõ điều đó thay vì giả vờ rằng câu trả lời đã hoàn chỉnh.",
+            "## Kế hoạch Đánh giá\n\nNhóm nên đo lường chất lượng truy xuất bằng các câu hỏi thực tế của nhân viên như \"Làm thế nào để triển khai billing API?\" hoặc \"Ai sở hữu dịch vụ checkout?\" Thành công không chỉ là việc câu trả lời nghe trôi chảy hay không, mà là liệu bằng chứng được truy xuất có liên quan, có thể truy vết, và cập nhật hay không. Một kế hoạch kiểm thử hữu ích bao gồm so sánh các chiến lược chia nhỏ (chunking), kiểm tra xem các bộ lọc metadata có cải thiện độ liên quan không, và ghi chép lại các trường hợp thất bại. Ví dụ về các trường hợp thất bại có thể bao gồm tài liệu lỗi thời được xếp hạng cao hơn sổ tay hiện tại, các đoạn nhỏ làm mất các lưu ý quan trọng, hoặc nội dung đa ngôn ngữ làm rối mô hình embedding.",
+            "## Lưu ý Vận hành\n\nKhi tập tài liệu tăng lên, nhóm nên theo dõi hành vi index lại, việc xóa tài liệu, và độ mới của nguồn. Hệ thống cũng nên ghi log lại các đoạn nào đã được truy xuất để người đánh giá có thể xem xét tại sao một câu trả lời nhất định được tạo ra. Vòng lặp phản hồi đó là thiết yếu để cải thiện cả dữ liệu và chiến lược đưa ra câu lệnh (prompting strategy)."
+          ]
+        },
+        "recursive": {
+          "count": 18,
+          "avg_length": 150.0,
+          "chunks": [
+            "# Thiết kế Hệ thống RAG cho Trợ lý Tri thức Nội bộ\n\n## Bối cảnh\n\n",
+            "Một nhóm sản phẩm muốn một trợ lý có thể trả lời các câu hỏi về việc giới thiệu (onboarding), quy trình triển khai, sở hữu dịch vụ, và các bước khắc phục sự cố. ",
+            "Công ty đã có sẵn tài liệu rải rác trên các sổ tay markdown, sổ tay kỹ thuật (runbooks), và ghi chú hỗ trợ, nhưng nhân viên lãng phí thời gian tìm kiếm trên các thư mục không liên kết với nhau.\n\n",
+            "## Mục tiêu\n\nXây dựng một hệ thống tạo văn bản tăng cường truy xuất (retrieval-augmented generation - RAG) để tìm các tài liệu nội bộ có liên quan trước khi đưa ra câu trả lời. ",
+            "Trợ lý nên giảm thiểu sự ảo giác (hallucinations) bằng cách căn cứ phản hồi của nó trên văn bản truy xuất được và nên phân biệt rõ ràng giữa ngữ cảnh được truy xuất và phần tổng hợp tự tạo.\n\n",
+            "## Kiến trúc Đề xuất\n\n",
+            "Đường ống thu thập (ingestion pipeline) đọc các file markdown và text từ các thư mục đáng tin cậy, chia nhỏ chúng thành các đoạn (segments) mạch lạc về ngữ nghĩa, và lưu trữ các đoạn đó cùng với ",
+            "metadata. Mỗi bản ghi được lưu trữ bao gồm đường dẫn nguồn, mã định danh tài liệu, loại tài liệu, và phòng ban. ",
+            "Lớp truy xuất sẽ embed các câu hỏi của người dùng, thực hiện tìm kiếm tương tự (similarity search), và tùy chọn áp dụng các bộ lọc metadata khi câu hỏi được thu hẹp trong phạm vi một nhóm cụ thể.\n\n",
+            "Lớp ứng dụng lấy các đoạn (chunks) truy xuất được tốt nhất và xây dựng một lời nhắc (prompt) hướng dẫn mô hình ngôn ngữ chỉ trả lời từ các bằng chứng được cung cấp. ",
+            "Nếu kết quả truy xuất yếu hoặc mâu thuẫn, trợ lý nên nói rõ điều đó thay vì giả vờ rằng câu trả lời đã hoàn chỉnh.\n\n## Kế hoạch Đánh giá\n\n",
+            "Nhóm nên đo lường chất lượng truy xuất bằng các câu hỏi thực tế của nhân viên như \"Làm thế nào để triển khai billing API?\" hoặc \"Ai sở hữu dịch vụ checkout?\" Thành công không chỉ là việc câu trả lời ",
+            "nghe trôi chảy hay không, mà là liệu bằng chứng được truy xuất có liên quan, có thể truy vết, và cập nhật hay không.\n\n",
+            "Một kế hoạch kiểm thử hữu ích bao gồm so sánh các chiến lược chia nhỏ (chunking), kiểm tra xem các bộ lọc metadata có cải thiện độ liên quan không, và ghi chép lại các trường hợp thất bại. ",
+            "Ví dụ về các trường hợp thất bại có thể bao gồm tài liệu lỗi thời được xếp hạng cao hơn sổ tay hiện tại, các đoạn nhỏ làm mất các lưu ý quan trọng, hoặc nội dung đa ngôn ngữ làm rối mô hình ",
+            "embedding.\n\n## Lưu ý Vận hành\n\nKhi tập tài liệu tăng lên, nhóm nên theo dõi hành vi index lại, việc xóa tài liệu, và độ mới của nguồn. ",
+            "Hệ thống cũng nên ghi log lại các đoạn nào đã được truy xuất để người đánh giá có thể xem xét tại sao một câu trả lời nhất định được tạo ra. ",
+            "Vòng lặp phản hồi đó là thiết yếu để cải thiện cả dữ liệu và chiến lược đưa ra câu lệnh (prompting strategy).\n"
+          ]
+        }
+      }
+    },
+    {
+      "document": "data/vi_retrieval_notes.md",
+      "character_count": 1667,
+      "strategies": {
+        "fixed_size": {
+          "count": 10,
+          "avg_length": 184.7,
+          "chunks": [
+            "# Ghi chú về Retrieval cho Trợ lý Tri thức Nội bộ\n\nTrong một hệ thống trợ lý tri thức nội bộ, retrieval đóng vai trò tìm ra những đoạn tài liệu phù hợp nhất trước khi mô hình ngôn ngữ tạo câu trả lời.",
+            "ngữ tạo câu trả lời. Mục tiêu không chỉ là trả lời trôi chảy mà còn phải bám sát nguồn dữ liệu đã được lưu trữ.\n\nMột pipeline retrieval điển hình bắt đầu từ việc thu thập tài liệu, làm sạch nội dung, ",
+            " làm sạch nội dung, chia nhỏ thành các chunk có ý nghĩa, sau đó tạo embedding cho từng chunk. Khi người dùng đặt câu hỏi, hệ thống sẽ tạo embedding cho câu hỏi đó và so sánh với các vector đã lưu để t",
+            "c vector đã lưu để tìm các đoạn gần nhất về mặt ngữ nghĩa.\n\nChất lượng chunking ảnh hưởng trực tiếp đến chất lượng retrieval. Nếu chunk quá ngắn, hệ thống có thể trả về các câu rời rạc thiếu ngữ cảnh.",
+            " rạc thiếu ngữ cảnh. Nếu chunk quá dài, nhiều ý không liên quan sẽ bị gộp lại, làm giảm độ chính xác của kết quả. Vì vậy, nhiều nhóm chọn chiến lược recursive chunking để ưu tiên tách theo đoạn, rồi m",
+            "ách theo đoạn, rồi mới tách nhỏ hơn khi cần.\n\nMetadata cũng rất quan trọng. Ví dụ, một công ty có thể gắn nhãn tài liệu theo phòng ban, ngôn ngữ, độ nhạy cảm, hoặc ngày cập nhật. Khi người dùng hỏi về",
+            "hi người dùng hỏi về tài liệu kỹ thuật bằng tiếng Việt, bộ lọc metadata có thể giúp hệ thống tránh lấy nhầm các tài liệu marketing hoặc tài liệu tiếng Anh không liên quan.\n\nTrong thực tế, retrieval kh",
+            "hực tế, retrieval không phải lúc nào cũng đúng. Một số lỗi thường gặp là tài liệu cũ vẫn xếp hạng cao, từ khóa trong câu hỏi không khớp với cách diễn đạt trong tài liệu, hoặc embedding model chưa xử l",
+            "ding model chưa xử lý tốt nội dung song ngữ. Vì vậy, đội ngũ phát triển nên kiểm thử bằng các truy vấn thực tế, xem trực tiếp các chunk được trả về, và ghi nhận failure cases để cải thiện dữ liệu cũng",
+            "i thiện dữ liệu cũng như chiến lược truy xuất.\n"
+          ]
+        },
+        "by_sentences": {
+          "count": 5,
+          "avg_length": 331.6,
+          "chunks": [
+            "# Ghi chú về Retrieval cho Trợ lý Tri thức Nội bộ\n\nTrong một hệ thống trợ lý tri thức nội bộ, retrieval đóng vai trò tìm ra những đoạn tài liệu phù hợp nhất trước khi mô hình ngôn ngữ tạo câu trả lời. Mục tiêu không chỉ là trả lời trôi chảy mà còn phải bám sát nguồn dữ liệu đã được lưu trữ. Một pipeline retrieval điển hình bắt đầu từ việc thu thập tài liệu, làm sạch nội dung, chia nhỏ thành các chunk có ý nghĩa, sau đó tạo embedding cho từng chunk.",
+            "Khi người dùng đặt câu hỏi, hệ thống sẽ tạo embedding cho câu hỏi đó và so sánh với các vector đã lưu để tìm các đoạn gần nhất về mặt ngữ nghĩa. Chất lượng chunking ảnh hưởng trực tiếp đến chất lượng retrieval. Nếu chunk quá ngắn, hệ thống có thể trả về các câu rời rạc thiếu ngữ cảnh.",
+            "Nếu chunk quá dài, nhiều ý không liên quan sẽ bị gộp lại, làm giảm độ chính xác của kết quả. Vì vậy, nhiều nhóm chọn chiến lược recursive chunking để ưu tiên tách theo đoạn, rồi mới tách nhỏ hơn khi cần. Metadata cũng rất quan trọng.",
+            "Ví dụ, một công ty có thể gắn nhãn tài liệu theo phòng ban, ngôn ngữ, độ nhạy cảm, hoặc ngày cập nhật. Khi người dùng hỏi về tài liệu kỹ thuật bằng tiếng Việt, bộ lọc metadata có thể giúp hệ thống tránh lấy nhầm các tài liệu marketing hoặc tài liệu tiếng Anh không liên quan. Trong thực tế, retrieval không phải lúc nào cũng đúng.",
+            "Một số lỗi thường gặp là tài liệu cũ vẫn xếp hạng cao, từ khóa trong câu hỏi không khớp với cách diễn đạt trong tài liệu, hoặc embedding model chưa xử lý tốt nội dung song ngữ. Vì vậy, đội ngũ phát triển nên kiểm thử bằng các truy vấn thực tế, xem trực tiếp các chunk được trả về, và ghi nhận failure cases để cải thiện dữ liệu cũng như chiến lược truy xuất."
+          ]
+        },
+        "recursive": {
+          "count": 13,
+          "avg_length": 128.23076923076923,
+          "chunks": [
+            "# Ghi chú về Retrieval cho Trợ lý Tri thức Nội bộ\n\n",
+            "Trong một hệ thống trợ lý tri thức nội bộ, retrieval đóng vai trò tìm ra những đoạn tài liệu phù hợp nhất trước khi mô hình ngôn ngữ tạo câu trả lời. ",
+            "Mục tiêu không chỉ là trả lời trôi chảy mà còn phải bám sát nguồn dữ liệu đã được lưu trữ.\n\n",
+            "Một pipeline retrieval điển hình bắt đầu từ việc thu thập tài liệu, làm sạch nội dung, chia nhỏ thành các chunk có ý nghĩa, sau đó tạo embedding cho từng chunk. ",
+            "Khi người dùng đặt câu hỏi, hệ thống sẽ tạo embedding cho câu hỏi đó và so sánh với các vector đã lưu để tìm các đoạn gần nhất về mặt ngữ nghĩa.\n\n",
+            "Chất lượng chunking ảnh hưởng trực tiếp đến chất lượng retrieval. Nếu chunk quá ngắn, hệ thống có thể trả về các câu rời rạc thiếu ngữ cảnh. ",
+            "Nếu chunk quá dài, nhiều ý không liên quan sẽ bị gộp lại, làm giảm độ chính xác của kết quả. ",
+            "Vì vậy, nhiều nhóm chọn chiến lược recursive chunking để ưu tiên tách theo đoạn, rồi mới tách nhỏ hơn khi cần.\n\n",
+            "Metadata cũng rất quan trọng. Ví dụ, một công ty có thể gắn nhãn tài liệu theo phòng ban, ngôn ngữ, độ nhạy cảm, hoặc ngày cập nhật. ",
+            "Khi người dùng hỏi về tài liệu kỹ thuật bằng tiếng Việt, bộ lọc metadata có thể giúp hệ thống tránh lấy nhầm các tài liệu marketing hoặc tài liệu tiếng Anh không liên quan.\n\n",
+            "Trong thực tế, retrieval không phải lúc nào cũng đúng. ",
+            "Một số lỗi thường gặp là tài liệu cũ vẫn xếp hạng cao, từ khóa trong câu hỏi không khớp với cách diễn đạt trong tài liệu, hoặc embedding model chưa xử lý tốt nội dung song ngữ. ",
+            "Vì vậy, đội ngũ phát triển nên kiểm thử bằng các truy vấn thực tế, xem trực tiếp các chunk được trả về, và ghi nhận failure cases để cải thiện dữ liệu cũng như chiến lược truy xuất.\n"
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+THÍ NGHIỆM CÁ NHÂN TRƯỚC KHI LẬP NHÓM
+Backend: mock embeddings fallback (64 chiều)
+Mock không biểu diễn ngữ nghĩa. Đây không phải benchmark chính thức của nhóm.
+Chỉ để đối chiếu trong bài tập: cao nếu cosine >= 0.5, thấp nếu cosine < 0.5. Đây không phải ngưỡng đánh giá retrieval thực tế.
+
+BÀI TOÁN CHUNKING
+overlap=50: công thức=23, chạy code=23
+overlap=100: công thức=25, chạy code=25
+
+5 CẶP CÂU (dự đoán lưu trước trong similarity_predictions.json)
+Cặp 1: dự đoán=cao, cosine=-0.043455, khớp quy ước=False
+  A: Tôi muốn trả lại sản phẩm bị lỗi.
+  B: Tôi cần hoàn trả món hàng không hoạt động.
+Cặp 2: dự đoán=cao, cosine=-0.083983, khớp quy ước=False
+  A: Người bán cần phản hồi yêu cầu bảo hành.
+  B: Cửa hàng phải trả lời đề nghị sửa chữa trong thời gian bảo hành.
+Cặp 3: dự đoán=thấp, cosine=-0.046237, khớp quy ước=True
+  A: Khách hàng muốn biết quy trình hoàn tiền.
+  B: Đội bóng đang luyện tập để thi đấu cuối tuần.
+Cặp 4: dự đoán=thấp, cosine=0.232198, khớp quy ước=True
+  A: Hóa đơn được dùng để đối chiếu thông tin mua hàng.
+  B: Sao Mộc là một hành tinh trong Hệ Mặt Trời.
+Cặp 5: dự đoán=cao, cosine=1.000000, khớp quy ước=True
+  A: Tôi cần kiểm tra tình trạng đơn hàng.
+  B: Tôi cần kiểm tra tình trạng đơn hàng.
+Cặp cao nhất: 5; thấp nhất: 2
+
+BASELINE THỬ TRÊN TÀI LIỆU KỸ THUẬT MẪU (chunk_size=200)
+data/vector_store_notes.md (2479 ký tự)
+  fixed_size: count=14, avg_length=195.64
+  by_sentences: count=8, avg_length=308.12
+  recursive: count=16, avg_length=154.94
+data/rag_system_design.md (2700 ký tự)
+  fixed_size: count=15, avg_length=198.67
+  by_sentences: count=5, avg_length=537.80
+  recursive: count=18, avg_length=150.00
+data/vi_retrieval_notes.md (1667 ký tự)
+  fixed_size: count=10, avg_length=184.70
+  by_sentences: count=5, avg_length=331.60
+  recursive: count=13, avg_length=128.23
